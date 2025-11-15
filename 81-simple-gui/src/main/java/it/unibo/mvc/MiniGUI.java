@@ -1,8 +1,11 @@
 package it.unibo.mvc;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -83,7 +86,22 @@ public class MiniGUI {
      *            ignored
      */
     public static void main(final String... args) {
-        new MiniGUI().display();
+        MiniGUI gui = new MiniGUI();
+        final JPanel panel = new JPanel(); 
+        JTextField txt = new JTextField("A text field");
+        panel.add(txt, BorderLayout.NORTH);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        gui.frame.setContentPane(panel);
+        final JButton button = new JButton("A button");
+        panel.add(button);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                txt.setText(gui.randomGenerator.nextInt() + "");
+            }
+        });
+        gui.frame.pack();
+        gui.display();
     }
 
 }
